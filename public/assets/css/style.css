@@ -1,9 +1,4 @@
-/* Custom background image */
-body {
-    background-image: url('https://images.unsplash.com/photo-1521747116042-5c55f27d6e3f?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg2fDB8MHxwaG90by1wYWNrZWR8MXx8TG9naW5nfGVufDB8fHx8fA&ixlib=rb-1.2.1&q=80&w=400');
-    background-size: cover;
-    background-position: center;
-}
+
 
 /* Custom card style */
 .card {

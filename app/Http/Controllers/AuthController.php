@@ -90,4 +90,10 @@ public function storePost(Request $request)
   return redirect()->route('index')->with('success', 'Post created successfully');
 }
 
+public function logout()
+{
+    Auth::logout();
+    return redirect()->route('login');
+
+}
 }

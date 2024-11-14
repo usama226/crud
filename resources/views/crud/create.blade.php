@@ -39,7 +39,7 @@
             <!-- Action Buttons -->
             <div class="mb-3 d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save</button>
-                <button type="reset" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+                <a href="{{ route('index') }}" class="btn btn-secondary">Back</a>
             </div>
         </form>
     </div>

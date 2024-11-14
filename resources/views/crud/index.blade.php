@@ -4,6 +4,10 @@
     <!-- Table to Display Entries -->
     <div class="table-container">
         <h3 class="text-center text-primary mb-4">Posts List</h3>
+        <div class="d-flex justify-content-between">
+        <a class="btn btn-primary mb-3" href="{{ route('createPost') }}">Create Post</a>
+        <a class="btn btn-danger mb-3" href="{{ route('logout') }}">logout</a>
+    </div>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead>

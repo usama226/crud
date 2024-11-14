@@ -8,7 +8,12 @@ Route::get('/register',[AuthController::class,'register'])->name('register');
 Route::post('/registerUser',[AuthController::class,'registerUser'])->name('registerUser');
 Route::post('/loginUser',[AuthController::class,'loginUser'])->name('loginUser');
 
-// these are crud routes
+
+Route::middleware(['auth'])->group(function () {
+  // these are crud routes
 Route::get('/index',[AuthController::class,'index'])->name('index');
 Route::get('/createPost',[AuthController::class,'createPost'])->name('createPost');
 Route::post('/storePost',[AuthController::class,'storePost'])->name('storePost');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+
+});
