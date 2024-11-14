@@ -31,6 +31,10 @@
                         </td>
                     </tr>
                     @endforeach
+                    @else
+                    <tr>
+                        <td colspan="5"> No record Found. </td>
+                    </tr>
                     @endif
 
                 </tbody>
