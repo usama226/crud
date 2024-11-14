@@ -1,0 +1,38 @@
+/* Custom background image */
+body {
+    background-image: url('https://images.unsplash.com/photo-1521747116042-5c55f27d6e3f?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg2fDB8MHxwaG90by1wYWNrZWR8MXx8TG9naW5nfGVufDB8fHx8fA&ixlib=rb-1.2.1&q=80&w=400');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Custom card style */
+.card {
+    background-color: rgba(255, 255, 255, 0.9); /* Light translucent background */
+    border-radius: 15px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* Links */
+a {
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+    .card {
+        width: 100%;
+    }
+}
