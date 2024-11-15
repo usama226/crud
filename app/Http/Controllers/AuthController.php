@@ -59,7 +59,7 @@ public function loginUser(Request $request)
 public function index()
 {
     $id= Auth::id();
-    $posts = Post::with('user')->where('user_id', $id)->get();
+    $posts = Post::with('user')->where('user_id', $id)->paginate(10);
     return view('crud.index',compact('posts'));
 }
 
@@ -88,6 +88,49 @@ public function storePost(Request $request)
   ]);
 
   return redirect()->route('index')->with('success', 'Post created successfully');
+}
+
+// this will show the view page of post
+public function viewPost($id)
+{
+    $post = Post::where( 'id', $id)->where('user_id', Auth::id())->with('user')->first();
+    return view('crud.view', compact('post'));
+}
+
+// thi will show the page of edit post
+public function editPost($id)
+{
+    $post = Post::findOrFail($id);
+    return view('crud.edit', compact('post'));
+}
+
+// this will update the post
+public function updatePost(Request $request, $id)
+{
+$validator= Validator::make($request->all(), [
+    'title' => 'required|min:3',
+    'description' => 'required|min:10',
+]);
+
+if ($validator->fails()) {
+    return redirect()->back()->withErrors($validator)->withInput();
+}
+
+$post = Post::findOrFail($id);
+$post->update([
+    'title' => $request->title,
+    'description' => $request->description      
+]);
+
+return redirect()->route('index')->with('success', 'Post updated successfully');
+}
+
+// this will delete the post 
+public function deletePost($id)
+{
+    $post = Post::findOrFail($id);
+    $post->delete();
+    return redirect()->route('index')->with('success', 'Post deleted successfully');
 }
 
 public function logout()

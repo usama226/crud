@@ -1,5 +1,5 @@
+@if (session('success'))
 <div class="container mt-5">
-    @if (session('success'))
 
 
     <!-- Success Alert -->
@@ -15,8 +15,8 @@
        <i class="bi bi-x-circle-fill"></i> {{ session('error') }}
        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
    </div>
-   @endif
 </div>
+   @endif
 
 <script>
     // Function to dismiss the success alert after 5 seconds

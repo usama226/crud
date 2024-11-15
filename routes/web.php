@@ -12,8 +12,12 @@ Route::post('/loginUser',[AuthController::class,'loginUser'])->name('loginUser')
 Route::middleware(['auth'])->group(function () {
   // these are crud routes
 Route::get('/index',[AuthController::class,'index'])->name('index');
+Route::get('/viewPost/{id}',[AuthController::class,'viewPost'])->name('viewPost');
 Route::get('/createPost',[AuthController::class,'createPost'])->name('createPost');
 Route::post('/storePost',[AuthController::class,'storePost'])->name('storePost');
+Route::get('/editPost/{id}',[AuthController::class,'editPost'])->name('editPost');
+Route::post(',/updatePost/{id}',[AuthController::class,'updatePost'])->name('updatePost');
+Route::delete('/deletePost/{id}',[AuthController::class,'deletePost'])->name('deletePost');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 });

@@ -12,6 +12,22 @@
     <title>Crud</title>
   </head>
   <body>
+   
+    
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div class="container">
+              <a class="navbar-brand">CRUD Operation</a>
+              <div class="d-flex gap-2">
+                @if (Auth::check())
+                <h4 class="text-white"> Hi, {{ Auth::user()->name }}</h4>
+                @else
+                <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
+                <a class="btn btn-primary" href="{{ route('register') }}">Register</a>
+                @endif
+                  
+            </div>
+            </div>
+          </nav>
 
 
 
