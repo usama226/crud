@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+// use DataTables;
 
 class AuthController extends Controller
 {
@@ -56,11 +59,37 @@ public function loginUser(Request $request)
     }
 }
 
-public function index()
+public function index(Request $request)
 {
-    $id= Auth::id();
-    $posts = Post::with('user')->where('user_id', $id)->paginate(10);
-    return view('crud.index',compact('posts'));
+    $id = Auth::id();
+
+    if ($request->ajax()) {
+        $posts = Post::with('user')->where('user_id', $id)->select('id', 'title', 'description', 'user_id', 'created_at');
+
+        return DataTables::of($posts)
+        ->addColumn('description', function ($post) {
+            return Str::words($post->description, 5);
+        })
+
+        ->addColumn('user', function ($post) {
+            return $post->user->name ?? 'N/A';
+        })
+        ->addColumn('created_at', function ($post) {
+            return \Carbon\Carbon::parse($post->created_at)->format('d M, Y');
+        })
+             ->addColumn('action', function ($post) {
+                return '<a class="btn btn-outline-primary" href="'.route('viewPost', $post->id).'">View</a>
+                        <a class="btn btn-primary" href="'.route('editPost', $post->id).'">Update</a>
+                        <form class="d-inline-block" action="'.route('deletePost', $post->id).'" method="POST" onsubmit="return confirmDelete()">
+                            '.csrf_field().'
+                            '.method_field('DELETE').'
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>';
+            })
+            ->make(true);
+    }
+
+    return view('crud.index');
 }
 
 // this will show the create posts page
@@ -119,13 +148,13 @@ if ($validator->fails()) {
 $post = Post::findOrFail($id);
 $post->update([
     'title' => $request->title,
-    'description' => $request->description      
+    'description' => $request->description
 ]);
 
 return redirect()->route('index')->with('success', 'Post updated successfully');
 }
 
-// this will delete the post 
+// this will delete the post
 public function deletePost($id)
 {
     $post = Post::findOrFail($id);

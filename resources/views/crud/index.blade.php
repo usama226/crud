@@ -10,7 +10,7 @@
         <a class="btn btn-danger mb-3" href="{{ route('logout') }}">logout</a>
     </div>
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table id="data-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -21,41 +21,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($posts->isNotEmpty())
-                    @foreach ($posts as $post)
-                    <tr>
-                        <td>{{ $post->title }}</td>
-                        <td>{{ Str::words($post->description,5)  }}</td>
-                        <td>{{ $post->user->name }}</td>
-                        <td> {{ \Carbon\Carbon::parse($post->created_at)->format('d M, Y') }}</td>
-                        <td>
-                            <a class="btn btn-outline-primary" href="{{ route('viewPost',$post->id) }}">View</a>
-                            <a class="btn btn-primary" href="{{ route('editPost',$post->id) }}">update</a>
-                            <form class="d-inline-block" action="{{ route('deletePost', $post->id) }}" method="POST" onsubmit="return confirmDelete()">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                            
-                            <script>
-                                function confirmDelete() {
-                                    return confirm('Are you sure you want to delete this post? This action cannot be undone.');
-                                }
-                            </script>                          
 
-                        </td>
-                    </tr>
-                    @endforeach
-                    @else
-                    <tr>
-                        <td colspan="5"> No record Found. </td>
-                    </tr>
-                    @endif
 
                 </tbody>
             </table>
-            {{ $posts->links('pagination::bootstrap-5') }}
+
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#data-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route("index") }}',
+            columns: [
+
+                { data: 'title' },
+                { data: 'description' },
+                { data: 'user' },
+                { data: 'created_at' },
+                { data: 'action', orderable: false, searchable: false }
+            ]
+        });
+    });
+</script>
 @endsection
