@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Jobs\RegisterNewUser;
 use App\Jobs\SendPostPublishedEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +41,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        dispatch(new RegisterNewUser($user));
         return redirect()->route('login')->with('success', 'You have registered successfully');
     }
 
