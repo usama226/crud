@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Jobs\SendPostPublishedEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
@@ -127,6 +128,7 @@ class AuthController extends Controller
             'description' => $request->description,
             'user_id' => Auth::id(),
         ]);
+        dispatch(new SendPostPublishedEmail($post));
 
         return redirect()->route('index')->with('success', 'Post created successfully');
     }
