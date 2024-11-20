@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Post;
+use App\Jobs\postUpdate;
 use App\Mail\PostUpdated;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,7 +22,7 @@ class PostUpdateObserver
      */
     public function updated(Post $post): void
     {
-        Mail::to($post->user->email)->send(new PostUpdated($post));
+        dispatch(new postUpdate($post));
     }
 
     /**
