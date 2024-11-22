@@ -3,10 +3,10 @@
 <div class="container d-flex justify-content-center align-items-center">
     <div class="row w-100 my-5">
         <div class="col-md-6 mx-auto">
-            @include('message')
             <div class="card shadow-lg rounded p-4">
                 <div class="card-body">
                     <h2 class="text-center text-primary mb-4">Login</h2>
+                    @include('message')
                     <form action="{{ route('loginUser') }}" method="POST">
                         @csrf
                         <!-- Username Input -->
@@ -37,7 +37,7 @@
                     </form>
                     <div class="d-flex justify-content-between mt-3">
                         <a href="#" class="text-decoration-none text-primary">Forgot Password?</a>
-                        <p class="mb-0">Don't have an account? <a href="{{ route('register') }}" class="text-decoration-none text-primary">Sign Up</a></p>
+                        <p class="mb-0">Dont have an account? <a href="{{ route('register') }}" class="text-decoration-none text-primary">Sign Up</a></p>
                     </div>
                 </div>
             </div>

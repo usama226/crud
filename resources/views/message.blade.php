@@ -1,39 +1,66 @@
 @if (session('success'))
-<div class="container mt-5">
-
-
-    <!-- Success Alert -->
-    <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle-fill"></i> {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-
-   @if (session('error'))
-   <!-- Error Alert -->
-   <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-       <i class="bi bi-x-circle-fill"></i> {{ session('error') }}
-       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-   </div>
+<div class="notification success-notification" id="successNotification">
+    <i class="bi bi-check-circle-fill"></i> {{ session('success') }}
 </div>
-   @endif
+@endif
+
+@if (session('error'))
+<div class="notification error-notification" id="errorNotification">
+    <i class="bi bi-x-circle-fill"></i> {{ session('error') }}
+</div>
+@endif
+
+<style>
+/* Common notification styles */
+.notification {
+    position: fixed;
+    z-index: 1050;
+    top: 20px; /* Position at the top of the page */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Prevent interaction */
+}
+
+/* Success notification style */
+.success-notification {
+    background-color: #28a745; /* Green */
+}
+
+/* Error notification style */
+.error-notification {
+    background-color: #dc3545; /* Red */
+    margin-top: 60px; /* Offset error notification slightly below success */
+}
+</style>
 
 <script>
-    // Function to dismiss the success alert after 5 seconds
-    setTimeout(function() {
-        const successAlert = document.getElementById('successAlert');
-        if (successAlert) {
-            successAlert.classList.remove('show');
-            successAlert.classList.add('fade');
-        }
-    }, 5000); // 5000ms = 5 seconds
+    // Function to show and automatically hide notifications
+    function showNotification(id) {
+        const notification = document.getElementById(id);
+        if (notification) {
+            notification.style.opacity = '1'; // Make it visible
+            notification.style.pointerEvents = 'auto'; // Allow interaction
 
-    // Function to dismiss the error alert after 5 seconds
-    setTimeout(function() {
-        const errorAlert = document.getElementById('errorAlert');
-        if (errorAlert) {
-            errorAlert.classList.remove('show');
-            errorAlert.classList.add('fade');
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0'; // Hide it
+                notification.style.pointerEvents = 'none'; // Disable interaction
+            }, 5000);
         }
-    }, 5000); // 5000ms = 5 seconds
+    }
+
+    // Trigger notifications if they exist
+    document.addEventListener('DOMContentLoaded', () => {
+        showNotification('successNotification');
+        showNotification('errorNotification');
+    });
 </script>
