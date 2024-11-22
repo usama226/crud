@@ -38,7 +38,7 @@
 
 /* Error notification style */
 .error-notification {
-    background-color: #dc3545; /* Red */
+    background-color: #ac2b37; /* Red */
     margin-top: 60px; /* Offset error notification slightly below success */
 }
 </style>
