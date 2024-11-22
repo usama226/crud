@@ -33,6 +33,7 @@
 /* Success notification style */
 .success-notification {
     background-color: #28a745; /* Green */
+    margin-top: 60px;
 }
 
 /* Error notification style */
