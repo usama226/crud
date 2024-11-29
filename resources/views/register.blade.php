@@ -11,7 +11,7 @@
                             <!-- Username Input -->
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="username" placeholder="Choose a username">
+                                <input type="text" value="{{ old('name') }}" name="name" class="form-control @error('name') is-invalid @enderror" id="username" placeholder="Choose a username">
                                 @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -20,7 +20,7 @@
                             <!-- Email Input -->
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter your email">
+                                <input type="email" value="{{ old('email') }}" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter your email">
                                 @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror

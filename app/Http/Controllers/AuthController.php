@@ -29,12 +29,22 @@ class AuthController extends Controller
     // this will register the user
     public function registerUser(Request $request)
     {
-        $request->validate([
+        // // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|min:6',
+        //     'cpassword' => 'required|same:password',
+        // // ]);
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'cpassword' => 'required|same:password',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $user = User::create([
             'name' => $request->name,
